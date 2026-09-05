@@ -18,5 +18,6 @@ jobs:
       - name: check website
         run: test -f index.html
 
-
+      - name: Build Docker image
+        run: docker build -t construction-website:test .
      
