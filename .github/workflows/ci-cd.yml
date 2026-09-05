@@ -1,11 +1,11 @@
-name: Construction Website CI
+name: Construction Website CI-CD
 
 on:
   push:
 
 jobs:
 
-  test-construction-website:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,8 +28,14 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push Docker image
-        run: docker push theharunshaikh/construction-website:latest       
-      
+        run: docker push theharunshaikh/construction-website:latest
+
+
+  cd:
+    needs: ci
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Test SSH connection
         run: |
           mkdir -p ~/.ssh
@@ -38,5 +44,4 @@ jobs:
 
           ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
 
-          ssh -i ~/.ssh/id_ed25519 ubuntu@${{ secrets.EC2_HOST }} "echo SSH connection successful"    
-          
+          ssh -i ~/.ssh/id_ed25519 ubuntu@${{ secrets.EC2_HOST }} "echo SSH connection successful"
