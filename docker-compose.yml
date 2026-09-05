@@ -1,0 +1,7 @@
+services:
+  website:
+    image: theharunshaikh/construction-website:latest
+    container_name: construction-website
+    ports:
+      - "80:80"
+    restart: unless-stopped
