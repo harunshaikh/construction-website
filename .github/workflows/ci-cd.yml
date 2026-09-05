@@ -1,0 +1,22 @@
+name: construction website CI
+
+on:
+  push:  
+
+jobs:
+  
+  test-construction-website:
+    runs-on: ubuntu-latest
+    
+    steps: 
+      - name: checkout code
+        uses: actions/checkout@v5
+
+      - name: show files
+        run: ls -la
+
+      - name: check website
+        run: test -f index.html
+
+
+     
